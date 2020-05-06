@@ -1,7 +1,7 @@
 # rootless-podman-dockerfiles
 
-Dockerfiles to build OCI images with [Podman container
-runtine](https://podman.io/) in rootless mode.
+Dockerfiles to build OCI images shipped with [Podman container
+runtine](https://podman.io/) in _rootless mode_.
 
 I've been using these images to __test__ how Podman behaves when running inside
 containers. To be more specif, I'm trying to use it to __build images inside
@@ -12,7 +12,7 @@ containers__. Instructions and results are presented below.
 ### 1.1. Build a Podman image in _rootless mode_
 
 ```sh
-cd <BASE-LINUX-FLAVOR> ## e.g. ubuntu
+cd <BASE-LINUX-FLAVOR> # e.g. ubuntu
 docker build --rm -t rootless-podman .
 ```
 
@@ -22,7 +22,7 @@ docker build --rm -t rootless-podman .
 docker run -it --rm rootless-podman /bin/bash
 ```
 
-### 1.3. Run a container in privileged mode
+### 1.3. Run a container in _privileged mode_
 
 ```sh
 docker run -it --privileged --rm rootless-podman /bin/bash
@@ -30,15 +30,15 @@ docker run -it --privileged --rm rootless-podman /bin/bash
 
 ### 1.4. Build image inside a container results
 
-1. _Privileged_ mode is required to build images inside a given container and
-   works as expected in Ubuntu-based/Docker-managed containers.
+* __Ubuntu-based/Docker-managed containers__: _privileged mode_ is required to
+  build images inside a given container and works as expected.
 
 ## 2. Podman usage
 
 ### 2.1. Build a Podman image in _rootless mode_
 
 ```sh
-cd <BASE-LINUX-FLAVOR> ## e.g. ubuntu
+cd <BASE-LINUX-FLAVOR> # e.g. ubuntu
 podman build --rm -t rootless-podman .
 ```
 
@@ -48,7 +48,7 @@ podman build --rm -t rootless-podman .
 podman run -it --rm rootless-podman /bin/bash
 ```
 
-### 2.3. Run a container in privileged mode
+### 2.3. Run a container in _privileged mode_
 
 ```sh
 podman run -it --privileged --rm rootless-podman /bin/bash
@@ -56,27 +56,24 @@ podman run -it --privileged --rm rootless-podman /bin/bash
 
 ### 2.4. Build image inside a container results
 
-1. _Privileged mode_ is required to build images inside a given container, but I
-    receive the following error message when trying to do that in
-    Ubuntu-based/Podman-managed containers:
+* __Ubuntu-based/Podman-managed containers__: _privileged mode_ is required to
+  build images inside a given container, but I receive the following error
+  message when trying to do that:
 
     ```
-    Error: error creating build container: The following failures happened
-    while trying to pull image specified by <IMAGE-NAME> based on search
-    registries in /etc/containers/registries.conf:
+    Error: error creating build container: The following failures happened while trying to pull
+    image specified by <IMAGE-NAME> based on search registries in /etc/containers/registries.conf:
 
-    * "localhost/<IMAGE-NAME>": Error initializing source
-    docker://localhost/<IMAGE-NAME>: error pinging docker registry localhost:
-    Get https://localhost/v2/: dial tcp 127.0.0.1:443: connect: connection
-    refused
+    * "localhost/<IMAGE-NAME>": Error initializing source docker://localhost/<IMAGE-NAME>: error
+    pinging docker registry localhost: Get https://localhost/v2/: dial tcp 127.0.0.1:443: connect:
+    connection refused
 
-    * "docker.io/library/<IMAGE-NAME>": Error committing the finished image:
-    error adding layer with blob "sha256:997...": Error processing tar file
-    (exit status 1): there might not be enough IDs available in the namespace
-    (requested 0:42 for /etc/gshadow): lchown /etc/gshadow: invalid argument
+    * "docker.io/library/<IMAGE-NAME>": Error committing the finished image: error adding layer with
+    blob "sha256:997...": Error processing tar file (exit status 1): there might not be enough IDs
+    available in the namespace (requested 0:42 for /etc/gshadow): lchown /etc/gshadow: invalid
+    argument
 
-    * "quay.io/<IMAGE-NAME>": Error initializing source
-    docker://quay.io/<IMAGE-NAME>: Error reading manifest <IMAGE-VERSION> in
-    quay.io/<IMAGE-BASE_NAME>: error parsing HTTP 404 response body: invalid
-    character '<' looking for beginning of value: "<...404 Not Found..."
+    * "quay.io/<IMAGE-NAME>": Error initializing source docker://quay.io/<IMAGE-NAME>: Error reading
+    manifest <IMAGE-VERSION> in quay.io/<IMAGE-BASE_NAME>: error parsing HTTP 404 response body:
+    invalid character '<' looking for beginning of value: "<...404 Not Found..."
     ```
