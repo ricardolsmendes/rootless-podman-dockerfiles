@@ -4,8 +4,11 @@ Dockerfiles to build OCI images shipped with [Podman container
 runtine](https://podman.io/) in _rootless mode_.
 
 I've been using these images to __test__ how Podman behaves when running inside
-containers. To be more specif, I'm trying to use it to __build images inside
-containers__. Instructions and results are presented below.
+containers. To be more specific, I'm trying to use them to __build images inside
+containers__ as an alternative to Docker in Docker (DinD). Unfortunately, I
+didn't succeed unless launching the containers in _privileged mode_.
+
+Instructions and results are presented below.
 
 ## 1. Docker usage
 
