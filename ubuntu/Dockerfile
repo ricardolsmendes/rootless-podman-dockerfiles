@@ -21,12 +21,12 @@ FROM ubuntu:20.04
 LABEL author="Ricardo Mendes <ricardolsmendes@gmail.com>"
 
 # ---------------------------------------------------------------------------- #
-# Install podman.                                                              #
-# The Kubic project provides packages for Ubuntu 18.04, 19.04, 19.10 and       #
-# 20.04.                                                                       #
+# Install fuse-overlayfs & podman, and set up crun as the default OCI runtime  #
+# for root Podman.                                                             #
 #                                                                              #
-# Set up podman to run in rootless mode.                                       #
+# References:                                                                  #
 # github.com/containers/libpod/blob/master/docs/tutorials/rootless_tutorial.md #
+# podman.io/blogs/2019/10/29/podman-crun-f31.html                              #
 # ---------------------------------------------------------------------------- #
 COPY --from=crun-builder /usr/local/bin/crun /usr/local/bin/
 
@@ -36,13 +36,8 @@ RUN apt-get update -qq \
     && echo "deb https://download.opensuse.org/repositories/devel:/kubic:/libcontainers:/stable/xUbuntu_${VERSION_ID}/ /" > /etc/apt/sources.list.d/devel:kubic:libcontainers:stable.list \
     && curl -L https://download.opensuse.org/repositories/devel:/kubic:/libcontainers:/stable/xUbuntu_${VERSION_ID}/Release.key | apt-key add - \
     && apt-get update -qq \
-    && apt-get install -qq -y fuse-overlayfs podman \
+    && apt-get install -qq -y podman \
     && sed -i s/'^runtime = "runc"'/'runtime = "crun"'/ /usr/share/containers/libpod.conf
-
-# ---------------------------------------------------------------------------- #
-# Add useful development tools.                                                #
-# ---------------------------------------------------------------------------- #
-RUN apt-get install -qq -y git
 
 # ---------------------------------------------------------------------------- #
 # Create and activate an unprivileged user.                                    #
