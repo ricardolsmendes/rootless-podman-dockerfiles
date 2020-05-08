@@ -6,6 +6,9 @@ on:
       - master
   pull_request:
 
+env:
+  IMAGE_NAME: rootless-podman
+
 jobs:
   build-fedora:
     name: build-fedora
@@ -16,20 +19,11 @@ jobs:
     - name: Checkout
       uses: actions/checkout@v2
 
-    - name: Run local registry
-      run: docker run -d -p 5000:5000 registry:2
-
-    - name: Build and push image
-      uses: ./fedora/
-      env:
-        DOCKER_BUILDKIT: 1
-      with:
-        registry: localhost:5000
-        repository: temp/workflow
-        tags: foo
+    - name: Build the Docker image
+      run: docker build -f ./fedora/Dockerfile --rm -t $IMAGE_NAME .
 
     - name: Remove local image
-      run: docker image rm localhost:5000/temp/workflow:foo
+      run: docker image rm ${IMAGE_ID}
 
   build-ubuntu:
     name: build-ubuntu
@@ -40,17 +34,8 @@ jobs:
     - name: Checkout
       uses: actions/checkout@v2
 
-    - name: Run local registry
-      run: docker run -d -p 5000:5000 registry:2
-
-    - name: Build and push image
-      uses: ./ubuntu/
-      env:
-        DOCKER_BUILDKIT: 1
-      with:
-        registry: localhost:5000
-        repository: temp/workflow
-        tags: foo
+    - name: Build the Docker image
+      run: docker build -f ./fedora/Dockerfile --rm -t $IMAGE_NAME .
 
     - name: Remove local image
-      run: docker image rm localhost:5000/temp/workflow:foo
+      run: docker image rm ${IMAGE_ID}
