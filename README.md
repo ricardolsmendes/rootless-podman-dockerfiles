@@ -3,6 +3,8 @@
 Dockerfiles to build OCI images shipped with [Podman container
 runtine](https://podman.io/) in _rootless mode_.
 
+![CI](https://github.com/ricardolsmendes/rootless-podman-dockerfiles/workflows/CI/badge.svg)
+
 I've been using these images to __test__ how Podman behaves when running inside
 containers. To be more specific, I'm trying to use them to __build images inside
 containers__ as an alternative to Docker in Docker (DinD).
