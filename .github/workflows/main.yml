@@ -35,7 +35,7 @@ jobs:
       uses: actions/checkout@v2
 
     - name: Build the Docker image
-      run: docker build -f ./fedora/Dockerfile --rm -t $IMAGE_NAME .
+      run: docker build -f ./ubuntu/Dockerfile --rm -t $IMAGE_NAME .
 
     - name: Remove local image
       run: docker image rm ${IMAGE_NAME}
