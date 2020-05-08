@@ -5,8 +5,7 @@ runtine](https://podman.io/) in _rootless mode_.
 
 I've been using these images to __test__ how Podman behaves when running inside
 containers. To be more specific, I'm trying to use them to __build images inside
-containers__ as an alternative to Docker in Docker (DinD). Unfortunately, I
-didn't succeed unless launching the containers in _privileged mode_.
+containers__ as an alternative to Docker in Docker (DinD).
 
 Instructions and results are presented below.
 
@@ -63,20 +62,20 @@ podman run -it --privileged --rm rootless-podman /bin/bash
   build images inside a given container, but I receive the following error
   message when trying to do that:
 
-    ```
-    Error: error creating build container: The following failures happened while trying to pull
-    image specified by <IMAGE-NAME> based on search registries in /etc/containers/registries.conf:
+  ```
+  Error: error creating build container: The following failures happened while trying to pull
+  image specified by <IMAGE-NAME> based on search registries in /etc/containers/registries.conf:
 
-    * "localhost/<IMAGE-NAME>": Error initializing source docker://localhost/<IMAGE-NAME>: error
-    pinging docker registry localhost: Get https://localhost/v2/: dial tcp 127.0.0.1:443: connect:
-    connection refused
+  * "localhost/<IMAGE-NAME>": Error initializing source docker://localhost/<IMAGE-NAME>: error
+  pinging docker registry localhost: Get https://localhost/v2/: dial tcp 127.0.0.1:443: connect:
+  connection refused
 
-    * "docker.io/library/<IMAGE-NAME>": Error committing the finished image: error adding layer with
-    blob "sha256:997...": Error processing tar file (exit status 1): there might not be enough IDs
-    available in the namespace (requested 0:42 for /etc/gshadow): lchown /etc/gshadow: invalid
-    argument
+  * "docker.io/library/<IMAGE-NAME>": Error committing the finished image: error adding layer with
+  blob "sha256:997...": Error processing tar file (exit status 1): there might not be enough IDs
+  available in the namespace (requested 0:42 for /etc/gshadow): lchown /etc/gshadow: invalid
+  argument
 
-    * "quay.io/<IMAGE-NAME>": Error initializing source docker://quay.io/<IMAGE-NAME>: Error reading
-    manifest <IMAGE-VERSION> in quay.io/<IMAGE-BASE_NAME>: error parsing HTTP 404 response body:
-    invalid character '<' looking for beginning of value: "<...404 Not Found..."
-    ```
+  * "quay.io/<IMAGE-NAME>": Error initializing source docker://quay.io/<IMAGE-NAME>: Error reading
+  manifest <IMAGE-VERSION> in quay.io/<IMAGE-BASE_NAME>: error parsing HTTP 404 response body:
+  invalid character '<' looking for beginning of value: "<...404 Not Found..."
+  ```
