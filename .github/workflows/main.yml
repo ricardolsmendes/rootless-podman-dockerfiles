@@ -1,0 +1,41 @@
+name: CI
+
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+
+env:
+  IMAGE_NAME: rootless-podman
+
+jobs:
+  build-fedora:
+    name: build-fedora
+    runs-on: ubuntu-latest
+    timeout-minutes: 3
+    steps:
+
+    - name: Checkout
+      uses: actions/checkout@v2
+
+    - name: Build the Docker image
+      run: docker build -f ./fedora/Dockerfile --rm -t $IMAGE_NAME .
+
+    - name: Remove local image
+      run: docker image rm ${IMAGE_NAME}
+
+  build-ubuntu:
+    name: build-ubuntu
+    runs-on: ubuntu-latest
+    timeout-minutes: 3
+    steps:
+
+    - name: Checkout
+      uses: actions/checkout@v2
+
+    - name: Build the Docker image
+      run: docker build -f ./fedora/Dockerfile --rm -t $IMAGE_NAME .
+
+    - name: Remove local image
+      run: docker image rm ${IMAGE_NAME}
