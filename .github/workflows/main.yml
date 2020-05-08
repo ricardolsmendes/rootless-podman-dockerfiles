@@ -10,7 +10,7 @@ env:
   IMAGE_ID: rootless-podman
 
 jobs:
-  build-fedora:
+  build:
     name: build-fedora
     runs-on: ubuntu-latest
     timeout-minutes: 3
@@ -32,9 +32,8 @@ jobs:
         tags: latest
 
     - name: Remove local image
-      run: docker image rm localhost:5000temp/${IMAGE_ID}:latest
+      run: docker image rm localhost:5000/temp/${IMAGE_ID}:latest
 
-  build-ubuntu:
     name: build-ubuntu
     runs-on: ubuntu-latest
     timeout-minutes: 3
