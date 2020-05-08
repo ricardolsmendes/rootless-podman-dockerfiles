@@ -32,8 +32,8 @@ docker run -it --privileged --rm rootless-podman /bin/bash
 
 ### 1.4. Build image inside a container results
 
-* __Ubuntu-based/Docker-managed containers__: _privileged mode_ is required to
-  build images inside a given container and works as expected.
+* __Docker-managed containers__: _privileged mode_ is required to build images
+  inside a given container and works as expected.
 
 ## 2. Podman usage
 
@@ -58,9 +58,9 @@ podman run -it --privileged --rm rootless-podman /bin/bash
 
 ### 2.4. Build image inside a container results
 
-* __Ubuntu-based/Podman-managed containers__: _privileged mode_ is required to
-  build images inside a given container, but I receive the following error
-  message when trying to do that:
+* __Podman-managed containers__: _privileged mode_ is required to build images
+  inside a given container, but I receive the following error message when
+  trying to do that:
 
   ```
   Error: error creating build container: The following failures happened while trying to pull
