@@ -1,9 +1,9 @@
 # ---------------------------------------------------------------------------- #
 # quay.io/podman/stable is based on registry.fedoraproject.org/fedora:latest.  #
 #                                                                              #
-# Please visit                                                                 #
+# Please refer to                                                              #
 # github.com/containers/libpod/blob/master/contrib/podmanimage/stable/Dockerfile
-# for reference                                                                #
+# for details.                                                                 #
 # ---------------------------------------------------------------------------- #
 FROM quay.io/podman/stable
 LABEL author="Ricardo Mendes <ricardolsmendes@gmail.com>"
