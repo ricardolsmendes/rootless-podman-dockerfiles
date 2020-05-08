@@ -1,0 +1,59 @@
+name: CI
+
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+
+env:
+  IMAGE_ID: rootless-podman
+
+jobs:
+  build-fedora:
+    name: build-fedora
+    runs-on: ubuntu-latest
+    timeout-minutes: 3
+    steps:
+
+    - name: Checkout
+      uses: actions/checkout@v2
+
+    - name: Run local registry
+      run: docker run -d -p 5000:5000 registry:2
+
+    - name: Build and push image
+      uses: ./fedora/
+      env:
+        DOCKER_BUILDKIT: 1
+      with:
+        registry: localhost:5000
+        repository: temp/${IMAGE_ID}
+        tags: latest
+
+    - name: Remove local image
+      run: docker image rm localhost:5000temp/${IMAGE_ID}:latest
+
+  build-ubuntu:
+    name: build-ubuntu
+    runs-on: ubuntu-latest
+    timeout-minutes: 3
+    steps:
+
+    - name: Checkout
+        uses: actions/checkout@v2
+
+    - name: Run local registry
+        run: docker run -d -p 5000:5000 registry:2
+
+    - name: Build and push image
+        uses: ./ubuntu/
+        env:
+        DOCKER_BUILDKIT: 1
+        with:
+        registry: localhost:5000
+        repository: temp/${IMAGE_ID}
+        tags: latest
+
+    - name: Remove local image
+        run: docker image rm localhost:5000/temp/${IMAGE_ID}:latest
