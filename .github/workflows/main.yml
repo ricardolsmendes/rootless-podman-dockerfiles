@@ -41,19 +41,19 @@ jobs:
     steps:
 
     - name: Checkout
-        uses: actions/checkout@v2
+      uses: actions/checkout@v2
 
     - name: Run local registry
-        run: docker run -d -p 5000:5000 registry:2
+      run: docker run -d -p 5000:5000 registry:2
 
     - name: Build and push image
-        uses: ./ubuntu/
-        env:
+      uses: ./ubuntu/
+      env:
         DOCKER_BUILDKIT: 1
-        with:
+      with:
         registry: localhost:5000
         repository: temp/${IMAGE_ID}
         tags: latest
 
     - name: Remove local image
-        run: docker image rm localhost:5000/temp/${IMAGE_ID}:latest
+      run: docker image rm localhost:5000/temp/${IMAGE_ID}:latest
