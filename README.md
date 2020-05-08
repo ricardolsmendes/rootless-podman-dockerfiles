@@ -14,7 +14,7 @@ Instructions and results are presented below.
 ### 1.1. Build a Podman image in _rootless mode_
 
 ```sh
-cd <BASE-LINUX-FLAVOR> # e.g. ubuntu
+cd <BASE-LINUX-FLAVOR> # e.g. fedora
 docker build --rm -t rootless-podman .
 ```
 
@@ -40,7 +40,7 @@ docker run -it --privileged --rm rootless-podman /bin/bash
 ### 2.1. Build a Podman image in _rootless mode_
 
 ```sh
-cd <BASE-LINUX-FLAVOR> # e.g. ubuntu
+cd <BASE-LINUX-FLAVOR> # e.g. fedora
 podman build --rm -t rootless-podman .
 ```
 
