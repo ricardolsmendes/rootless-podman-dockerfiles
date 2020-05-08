@@ -23,7 +23,7 @@ jobs:
       run: docker build -f ./fedora/Dockerfile --rm -t $IMAGE_NAME .
 
     - name: Remove local image
-      run: docker image rm ${IMAGE_ID}
+      run: docker image rm ${IMAGE_NAME}
 
   build-ubuntu:
     name: build-ubuntu
@@ -38,4 +38,4 @@ jobs:
       run: docker build -f ./fedora/Dockerfile --rm -t $IMAGE_NAME .
 
     - name: Remove local image
-      run: docker image rm ${IMAGE_ID}
+      run: docker image rm ${IMAGE_NAME}
