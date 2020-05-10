@@ -13,9 +13,7 @@ LABEL author="Ricardo Mendes <ricardolsmendes@gmail.com>"
 # ---------------------------------------------------------------------------- #
 ENV IMAGE_BUILDER_USERNAME=imagebuilder
 
-RUN useradd $IMAGE_BUILDER_USERNAME \
-    && mkdir -p /home/${IMAGE_BUILDER_USERNAME}/ \
-    && chown -R $IMAGE_BUILDER_USERNAME /home/${IMAGE_BUILDER_USERNAME}
+RUN useradd $IMAGE_BUILDER_USERNAME
 
 USER $IMAGE_BUILDER_USERNAME
 WORKDIR /home/${IMAGE_BUILDER_USERNAME}
