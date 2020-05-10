@@ -8,7 +8,7 @@
 [ $(whoami) = 'imagebuilder' ] || exit 1
 
 # ---------------------------------------------------------------------------- #
-# Verify the current user is allowed call the `podman` binary.                 #
+# Verify the current user is allowed to run `podman`.                          #
 # ---------------------------------------------------------------------------- #
 podman --version
 [ $? -eq 0 ] || exit 1
