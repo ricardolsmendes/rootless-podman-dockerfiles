@@ -23,7 +23,7 @@ jobs:
       run: docker build -f ./fedora/Dockerfile --rm -t $IMAGE_NAME .
 
     - name: Test the image
-      run: docker run $IMAGE_NAME /bin/sh -c "$(cat ./test-image.sh)"
+      run: docker run --rm $IMAGE_NAME /bin/sh -c "$(cat ./test-image.sh)"
 
     - name: Remove local image
       run: docker image rm ${IMAGE_NAME}
@@ -41,7 +41,7 @@ jobs:
       run: docker build -f ./ubuntu/Dockerfile --rm -t $IMAGE_NAME .
 
     - name: Test the image
-      run: docker run $IMAGE_NAME /bin/sh -c "$(cat ./test-image.sh)"
+      run: docker run --rm $IMAGE_NAME /bin/sh -c "$(cat ./test-image.sh)"
 
     - name: Remove local image
       run: docker image rm ${IMAGE_NAME}
