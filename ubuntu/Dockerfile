@@ -20,7 +20,7 @@ RUN apt-get update -qq \
 # ---------------------------------------------------------------------------- #
 # Create and activate an unprivileged user.                                    #
 # ---------------------------------------------------------------------------- #
-ENV IMAGE_BUILDER_USERNAME=imagebuilder
+ARG IMAGE_BUILDER_USERNAME=imagebuilder
 
 RUN useradd $IMAGE_BUILDER_USERNAME
 
